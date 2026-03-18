@@ -1,0 +1,29 @@
+name: Build Warp4Free EXE
+
+on:
+  push:
+    branches: [ main ]  # ou master, dependendo do seu branch principal
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # permite rodar manualmente
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Build Warp4Free (Release x64)
+      run: msbuild Warp4Free.sln /p:Configuration=Release /p:Platform=x64
+
+    - name: Upload Artifact (EXE)
+      uses: actions/upload-artifact@v4
+      with:
+        name: Warp4Free-Release-x64
+        path: |
+          x64/Release/Warp4Free.exe
+          # adiciona mais arquivos se precisar (ex: .pdb, dlls)
