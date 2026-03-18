@@ -23,10 +23,13 @@ jobs:
     - name: Build Warp4Free (Release x64)
       run: msbuild Warp4Free.sln /p:Configuration=Release /p:Platform=x64 /m /v:minimal
 
+
     - name: Upload Artifact (EXE)
       uses: actions/upload-artifact@v4
       with:
         name: Warp4Free-Release-x64
         path: |
-          x64/Release/Warp4Free.exe
-          # Se tiver mais arquivos úteis (ex: .pdb pra debug), adiciona aqui
+          Warp4Free/x64/Release/Warp4Free.exe   # <-- Muda pra isso (adiciona Warp4Free/ no início)
+          # Opcional: adiciona mais se quiser
+          Warp4Free/x64/Release/*.exe
+          Warp4Free/x64/Release/*.pdb   # pra debug se precisar
